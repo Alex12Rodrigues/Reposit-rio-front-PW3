@@ -1,0 +1,50 @@
+/* Container principal da página inicial */
+.home_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4em;
+    background-color: #f8f9fa; /* Fundo claro para dar uma sensação de leveza */
+    font-family: 'Poppins', sans-serif; /* Fonte moderna e estilosa */
+}
+
+/* Título principal */
+.home_container h1 {
+    font-size: 3em; /* Aumentei o tamanho para dar mais destaque ao título */
+    margin-bottom: 0.5em;
+    color: #222; /* Cor neutra elegante */
+    letter-spacing: 2px; /* Espaçamento para um estilo mais sofisticado */
+}
+
+/* Destaque no título */
+.home_container h1 span {
+    color: #fff; /* Texto branco para contraste */
+    padding: 0.2em 0.4em; /* Aumentei o padding para destacar mais */
+    background-color: #FF00FF; /* Cor vibrante e chamativa */
+    border-radius: 5px; /* Bordas arredondadas para suavizar */
+}
+
+/* Parágrafo de descrição */
+.home_container p {
+    margin-bottom: 1.5em;
+    color: #6c757d; /* Tom de cinza mais suave */
+    font-size: 1.2em; /* Texto um pouco maior para legibilidade */
+    text-align: center; /* Centralizado para melhor apresentação */
+    line-height: 1.6; /* Espaçamento entre linhas para melhorar a leitura */
+}
+
+/* Imagem principal */
+.home_container img {
+    width: 70%; /* Tornar a imagem mais responsiva */
+    max-width: 800px; /* Limita o tamanho máximo da imagem */
+    border-radius: 10px; /* Adiciona bordas arredondadas */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombra suave para destacar a imagem */
+    margin-top: 2em;
+    transition: transform 0.3s ease; /* Animação suave ao passar o mouse */
+}
+
+.home_container img:hover {
+    transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+}
