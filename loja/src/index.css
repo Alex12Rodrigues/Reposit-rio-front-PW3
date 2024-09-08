@@ -1,15 +1,65 @@
-/* body{
+/* index.css */
+
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6, p, img{
-    margin: 1;
-    padding: 1;
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
+a {
+    color: #000;
+    text-decoration: none;
+}
 
- */
+a:hover, a:focus {
+    text-decoration: underline;
+}
 
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1em;
+}
 
+button {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+}
 
+input, textarea, select {
+    font: inherit;
+    margin: 0;
+    padding: 0.5em;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #333;
+}
+
+ul, ol {
+    margin-left: 1.5em;
+    margin-bottom: 1em;
+}
+
+section {
+    margin-bottom: 2em;
+}
