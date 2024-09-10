@@ -11,6 +11,10 @@ const CadastroRoupas = () => {
 
     const handleTamanhoChange = (e) => {
         setTamanho(e.target.value);
+        // Limpa o campo personalizado quando uma opção diferente de "Outro" é selecionada
+        if (e.target.value !== "Outro") {
+            setCustomTamanho("");
+        }
     };
 
     return (

@@ -1,8 +1,25 @@
-.container{
-    width: 1200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.container {
+    max-width: 1200px;
     margin: 0 auto;
-    flex-wrap: wrap;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.container:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+}
+
+.container-fluid {
+    width: 100%;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
 }

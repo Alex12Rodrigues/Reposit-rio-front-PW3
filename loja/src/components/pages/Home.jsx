@@ -12,21 +12,21 @@ const Home = () => {
 
             <section className={style.featuredSection}>
                 <h2>Destaques</h2>
-                <img src="./Decoracao-de-loja.png" alt="Produtos da loja" className={style.featuredImage}/>
+                <img src="./destaques.jpg" alt="Produtos da loja" className={style.featuredImage}/>
                 <p>Confira nossos produtos mais populares e as últimas tendências em moda.</p>
                 <a href="/produtos" className={style.button}>Veja mais</a>
             </section>
 
             <section className={style.newArrivalsSection}>
                 <h2>Novidades</h2>
-                <img src="./Decoracao-de-loja.png" alt="Novidades da loja" className={style.newArrivalsImage}/>
+                <img src="./roupas..jpg" alt="Novidades da loja" className={style.newArrivalsImage}/>
                 <p>Explore as últimas adições à nossa coleção. Sempre algo novo para descobrir!</p>
                 <a href="/novidades" className={style.button}>Explore Novidades</a>
             </section>
 
             <section className={style.saleSection}>
                 <h2>Promoções</h2>
-                <img src="./Decoracao-de-loja.png" alt="Promoções da Loja" className={style.saleImage}/>
+                <img src="./promo.jpg" alt="Promoções da Loja" className={style.saleImage}/>
                 <p>Aproveite descontos imperdíveis em itens selecionados. Não perca!</p>
                 <a href="/promocoes" className={style.button}>Ver Promoções</a>
             </section>

@@ -13,22 +13,39 @@
 .navbar {
     display: flex;
     justify-content: space-between;
-    padding: 1em;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    animation: gradientTransition 10s ease infinite;
+    align-items: center;
+    padding: 1em 2em;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    animation: gradientTransition 15s ease-in-out infinite;
+    background-size: 200% 200%;
+    transition: box-shadow 0.3s ease;
+}
+
+.navbar:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .list {
     display: flex;
     list-style: none;
     align-items: center;
-    justify-content: space-between;
+    gap: 2em;
     padding: 0;
     margin: 0;
 }
 
 .item {
-    margin-right: 1em;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.item:hover {
+    color: #007BFF;
+    transform: translateY(-3px);
 }
 
 .button {
@@ -40,18 +57,20 @@
     cursor: pointer;
     padding: 0;
     font-size: 1em;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .button:hover {
     color: #007BFF;
+    transform: scale(1.05);
 }
 
 .logo {
     width: 120px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .logo:hover {
     transform: scale(1.1);
+    filter: brightness(1.1);
 }

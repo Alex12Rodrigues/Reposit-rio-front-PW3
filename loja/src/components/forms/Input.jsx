@@ -1,29 +1,20 @@
-import styles from './Input.module.css'
+import React from "react";
+import style from './Input.module.css';
 
-
-
-function Input({type, text, name, placeHolder}){
-    return(
-
-        <div className={styles.form_control}>
-
-            <label htmlFor={name}> {text}</label>
-            <input 
-            type={type}
-            name={name}
-            id={name}
-            placeholder={placeHolder}
-            
+const Input = ({ type, name, text, placeholder, value, onChange }) => {
+    return (
+        <div className={style.input_container}>
+            <label htmlFor={name}>{text}</label>
+            <input
+                type={type}
+                name={name}
+                id={name}
+                placeholder={placeholder}
+                value={value}
+                onChange={onChange}
             />
-
-
         </div>
-    )
+    );
+};
 
-
-}
-
-export default Input
-
-
-
+export default Input;

@@ -6,7 +6,7 @@ function Button ({rotulo}){
 
         <div className={styles.button}>
 
-            <button>{rotulo}
+            <button >{rotulo}
 
             </button>
         </div>
