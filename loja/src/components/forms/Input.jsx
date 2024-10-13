@@ -1,20 +1,23 @@
 import React from "react";
-import style from './Input.module.css';
+import styles from './Input.module.css'; 
 
-const Input = ({ type, name, text, placeholder, value, onChange }) => {
+function Input({ type, text, name, placeholder, value, onChange, error }) {
     return (
-        <div className={style.input_container}>
+        <div className={styles.form_control}> 
             <label htmlFor={name}>{text}</label>
             <input
                 type={type}
                 name={name}
                 id={name}
                 placeholder={placeholder}
-                value={value}
-                onChange={onChange}
+                value={value} 
+                onChange={onChange} 
+                aria-label={text}
+                className={error ? styles.error : ''} // Classe para erro, se necessário
             />
+            {error && <span className={styles.error_message}>{error}</span>} {/* Mensagem de erro */}
         </div>
     );
-};
+}
 
 export default Input;
