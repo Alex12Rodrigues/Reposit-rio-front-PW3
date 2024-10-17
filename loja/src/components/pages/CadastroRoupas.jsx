@@ -7,87 +7,74 @@ import Button from "../forms/Button";
 const BASE_URL = 'http://localhost:5000';
 
 const CadastroRoupas = () => {
-    const [roupa, setRoupa] = useState({
-        marca: '',
-        modelo: '',
-        descricao: '',
-        cor: '',
-        tamanho: '',
-        customTamanho: ''
-    });
-
     const [tamanhos, setTamanhos] = useState([]);
-    const [errors, setErrors] = useState({});
-
-    const validate = () => {
-        const newErrors = {};
-        if (!roupa.marca.trim()) newErrors.marca = "Campo obrigatório";
-        if (!roupa.modelo.trim()) newErrors.modelo = "Campo obrigatório";
-        if (!roupa.descricao.trim()) newErrors.descricao = "Campo obrigatório";
-        if (!roupa.cor.trim()) newErrors.cor = "Campo obrigatório";
-        if (!roupa.tamanho) newErrors.tamanho = "Campo obrigatório"; // Validação do tamanho
-        return newErrors;
-    };
+    const [roupa, setRoupa] = useState({
+        nome_marca: '',
+        modelo_escolhido: '',
+        descricao_escrita: '',
+        cor_escolhida: '',
+        tamanho_escolhido: '',
+        custom_tamanho: ''
+    });
 
     const handlerChangeRoupa = (event) => {
         const { name, value } = event.target;
-        setRoupa(prevState => ({ ...prevState, [name]: value }));
-        setErrors({ ...errors, [name]: '' });
-
-        if (name === "tamanho" && value !== "Outro") {
-            setRoupa(prevState => ({ ...prevState, customTamanho: "" }));
-        }
+        setRoupa(prevState => ({
+            ...prevState,
+            [name]: value,
+            ...(name === "tamanho_escolhido" && value !== "Outro" ? { custom_tamanho: "" } : {})
+        }));
     };
 
     useEffect(() => {
-        fetch(`${BASE_URL}/listagemTamanhos`)
-            .then(resp => resp.json())
-            .then(data => {
+        const fetchTamanhos = async () => {
+            try {
+                const response = await fetch(`${BASE_URL}/tamanhos`);
+                const data = await response.json();
                 if (data.data) {
-                    setTamanhos(data.data);
+                    setTamanhos(data.data.map(t => ({ value: t.cod_tamanho, label: t.tamanho_escolhido })));
+                } else {
+                    console.error("Erro ao carregar tamanhos", data);
                 }
-            })
-            .catch(error => {
-                console.log(error);
-            });
+            } catch (error) {
+                console.log("Erro ao buscar tamanhos:", error);
+            }
+        };
+
+        fetchTamanhos();
     }, []);
 
-    const createRoupa = (roupa) => {
-        fetch(`${BASE_URL}/inserirPedido`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(roupa),
-        })
-        .then(response => response.json())
-        .then(data => {
+    const createRoupa = async () => {
+        try {
+            const response = await fetch(`${BASE_URL}/pedidos`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(roupa),
+            });
+            const data = await response.json();
             if (!data.errorStatus) {
                 alert("Roupa cadastrada com sucesso!");
                 setRoupa({
-                    marca: '',
-                    modelo: '',
-                    descricao: '',
-                    cor: '',
-                    tamanho: '',
-                    customTamanho: '',
+                    nome_marca: '',
+                    modelo_escolhido: '',
+                    descricao_escrita: '',
+                    cor_escolhida: '',
+                    tamanho_escolhido: '',
+                    custom_tamanho: '',
                 });
-                setErrors({}); // Limpa os erros após sucesso
             } else {
-                alert("Erro ao cadastrar roupa: " + data.mensageStatus);
+                alert(data.mensageStatus);
             }
-        })
-        .catch(err => console.error("Erro ao enviar dados:", err));
+        } catch (err) {
+            console.error("Erro ao enviar dados:", err);
+        }
     };
 
     const submit = (e) => {
         e.preventDefault();
-        const validationErrors = validate();
-        if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
-            return;
-        }
-        createRoupa(roupa);
+        createRoupa();
     };
 
     return (
@@ -96,55 +83,50 @@ const CadastroRoupas = () => {
             <form onSubmit={submit}>
                 <Input
                     type="text"
-                    name="marca"
+                    name="nome_marca"
                     text="Marca"
                     placeholder="Digite a marca da roupa"
-                    value={roupa.marca}
+                    value={roupa.nome_marca}
                     onChange={handlerChangeRoupa}
-                    error={errors.marca}
                 />
                 <Input
                     type="text"
-                    name="modelo"
+                    name="modelo_escolhido"
                     text="Modelo"
                     placeholder="Digite o modelo da roupa"
-                    value={roupa.modelo}
+                    value={roupa.modelo_escolhido}
                     onChange={handlerChangeRoupa}
-                    error={errors.modelo}
                 />
                 <Input
                     type="text"
-                    name="descricao"
+                    name="descricao_escrita"
                     text="Descrição"
                     placeholder="Descreva a roupa desejada"
-                    value={roupa.descricao}
+                    value={roupa.descricao_escrita}
                     onChange={handlerChangeRoupa}
-                    error={errors.descricao}
                 />
                 <Input
                     type="text"
-                    name="cor"
+                    name="cor_escolhida"
                     text="Cor"
                     placeholder="Escolha a cor"
-                    value={roupa.cor}
+                    value={roupa.cor_escolhida}
                     onChange={handlerChangeRoupa}
-                    error={errors.cor}
                 />
                 <Select
-                    name="tamanho"
+                    name="tamanho_escolhido"
                     text="Escolha o tamanho"
                     options={tamanhos}
-                    value={roupa.tamanho}
+                    value={roupa.tamanho_escolhido}
                     onChange={handlerChangeRoupa}
-                    error={errors.tamanho} // Passando erro para o Select
                 />
-                {roupa.tamanho === "Outro" && (
+                {roupa.tamanho_escolhido === "Outro" && (
                     <Input
                         type="text"
-                        name="customTamanho"
+                        name="custom_tamanho"
                         text="Informe o tamanho desejado"
                         placeholder="Digite o tamanho desejado"
-                        value={roupa.customTamanho}
+                        value={roupa.custom_tamanho}
                         onChange={handlerChangeRoupa}
                     />
                 )}
