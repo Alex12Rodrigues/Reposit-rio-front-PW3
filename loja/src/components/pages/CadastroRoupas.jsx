@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import style from './CadastroRoupas.module.css';
+import styles from './CadastroRoupas.module.css';
 import Input from "../forms/Input";
 import Select from "../forms/Select";
 import Button from "../forms/Button";
@@ -32,6 +32,7 @@ const CadastroRoupas = () => {
                 const response = await fetch(`${BASE_URL}/tamanhos`);
                 const data = await response.json();
                 if (data.data) {
+                    console.log(data.data); // Verifique o que está sendo retornado
                     setTamanhos(data.data.map(t => ({ value: t.cod_tamanho, label: t.tamanho_escolhido })));
                 } else {
                     console.error("Erro ao carregar tamanhos", data);
@@ -45,13 +46,25 @@ const CadastroRoupas = () => {
     }, []);
 
     const createRoupa = async () => {
+        const finalRoupa = {
+            ...roupa,
+            tamanho_escolhido: roupa.tamanho_escolhido === "Outro" ? roupa.custom_tamanho : roupa.tamanho_escolhido
+        };
+
+        console.log("Dados a serem enviados:", finalRoupa); // Verifique os dados
+
+        if (!finalRoupa.tamanho_escolhido) {
+            alert("Por favor, selecione um tamanho.");
+            return;
+        }
+
         try {
             const response = await fetch(`${BASE_URL}/pedidos`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(roupa),
+                body: JSON.stringify(finalRoupa),
             });
             const data = await response.json();
             if (!data.errorStatus) {
@@ -78,7 +91,7 @@ const CadastroRoupas = () => {
     };
 
     return (
-        <section className={style.create_roupas_container}>
+        <section className={styles.create_roupas_container}>
             <h1>Cadastro de Roupas Desejadas</h1>
             <form onSubmit={submit}>
                 <Input

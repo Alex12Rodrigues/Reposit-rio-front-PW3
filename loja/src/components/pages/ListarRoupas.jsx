@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import style from "./ListarRoupas.module.css"; // Certifique-se de que o nome do arquivo CSS esteja correto
-import RoupaCard from "../CardRoupas"; // Altere o componente de acordo com seu projeto
+import style from "./ListarRoupas.module.css"; 
+import RoupaCard from "../CardRoupas"; 
 import Container from "../layout/Container";
 import ContainerRoupas from "../layout/ContainerRoupas";
 
@@ -47,7 +47,9 @@ const ListRoupas = () => {
                             nome_marca={roupa.nome_marca}
                             modelo_escolhido={roupa.modelo_escolhido}
                             descricao_escrita={roupa.descricao_escrita}
-                            imagem={null} // Imagem pode ser definida conforme sua lógica, por enquanto coloquei null
+                            cor_escolhida={roupa.cor_escolhida} 
+                            tamanho_escolhido={roupa.tamanho_escolhido} 
+                            imagem={null} 
                         />
                     ))}
                 </ContainerRoupas>
