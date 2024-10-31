@@ -32,7 +32,7 @@ const ListRoupas = () => {
         };
 
         fetchRoupas();
-    }, []); // Executa apenas uma vez ao montar o componente
+    }, []);
 
     return (
         <Container>
@@ -42,7 +42,7 @@ const ListRoupas = () => {
                 <ContainerRoupas>
                     {roupas.map((roupa) => (
                         <RoupaCard
-                            key={roupa.cod_pedido} // Usando cod_pedido como chave
+                            key={roupa.cod_pedido}
                             cod_pedido={roupa.cod_pedido}
                             nome_marca={roupa.nome_marca}
                             modelo_escolhido={roupa.modelo_escolhido}

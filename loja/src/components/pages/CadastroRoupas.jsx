@@ -27,62 +27,64 @@ const CadastroRoupas = () => {
     };
 
     useEffect(() => {
-        const fetchTamanhos = async () => {
-            try {
-                const response = await fetch(`${BASE_URL}/tamanhos`);
-                const data = await response.json();
+        fetch(`${BASE_URL}/tamanhos`, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "*"
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
                 if (data.data) {
-                    console.log(data.data); // Verifique o que está sendo retornado
                     setTamanhos(data.data.map(t => ({ value: t.cod_tamanho, label: t.tamanho_escolhido })));
                 } else {
                     console.error("Erro ao carregar tamanhos", data);
                 }
-            } catch (error) {
-                console.log("Erro ao buscar tamanhos:", error);
-            }
-        };
-
-        fetchTamanhos();
+            })
+            .catch(error => console.error("Erro ao buscar tamanhos:", error));
     }, []);
 
-    const createRoupa = async () => {
+    const createRoupa = () => {
         const finalRoupa = {
             ...roupa,
             tamanho_escolhido: roupa.tamanho_escolhido === "Outro" ? roupa.custom_tamanho : roupa.tamanho_escolhido
         };
-
-        console.log("Dados a serem enviados:", finalRoupa); // Verifique os dados
 
         if (!finalRoupa.tamanho_escolhido) {
             alert("Por favor, selecione um tamanho.");
             return;
         }
 
-        try {
-            const response = await fetch(`${BASE_URL}/pedidos`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(finalRoupa),
-            });
-            const data = await response.json();
-            if (!data.errorStatus) {
-                alert("Roupa cadastrada com sucesso!");
-                setRoupa({
-                    nome_marca: '',
-                    modelo_escolhido: '',
-                    descricao_escrita: '',
-                    cor_escolhida: '',
-                    tamanho_escolhido: '',
-                    custom_tamanho: '',
-                });
-            } else {
-                alert(data.mensageStatus);
-            }
-        } catch (err) {
-            console.error("Erro ao enviar dados:", err);
-        }
+        fetch(`${BASE_URL}/pedidos`, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*'
+            },
+            body: JSON.stringify(finalRoupa)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.errorStatus) {
+                    alert("Roupa cadastrada com sucesso!");
+                    setRoupa({
+                        nome_marca: '',
+                        modelo_escolhido: '',
+                        descricao_escrita: '',
+                        cor_escolhida: '',
+                        tamanho_escolhido: '',
+                        custom_tamanho: ''
+                    });
+                } else {
+                    alert(data.mensageStatus);
+                }
+            })
+            .catch(error => console.error("Erro ao enviar dados:", error));
     };
 
     const submit = (e) => {

@@ -12,7 +12,7 @@ const Home = () => {
 
             <section className={style.featuredSection}>
                 <h2>Destaques</h2>
-                <img src="./destaques.jpg" alt="Produtos da loja" className={style.featuredImage}/>
+                <img src="./promo.jpg" alt="Produtos da loja" className={style.featuredImage}/>
                 <p>Confira nossos produtos mais populares e as últimas tendências em moda.</p>
                 <a href="/produtos" className={style.button}>Veja mais</a>
             </section>

@@ -1,9 +1,26 @@
-.button_Container{
-    width: 100%;
-    border: 1px solid #1f0150;
-    border-radius: 5px;
-    color: #ffffff;
-    background: rgb(2, 0, 36);
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(1, 39, 122, 1) 0%, rgba(98, 123, 242, 1) 0%, rgba(32, 11, 104, 1) 44%, rgba(1, 7, 115, 1) 100%, rgba(122, 0, 235, 1) 100%, rgba(0, 255, 171, 1) 100%);
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
 }
 
+.buttonContainer button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.buttonContainer button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.buttonContainer button:active {
+    transform: scale(0.95);
+}
