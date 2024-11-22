@@ -8,6 +8,7 @@ import CadastroRoupas from './components/pages/CadastroRoupas';
 import DetailRoupa from './components/pages/DetailRoupa';
 import AtualizarPedido from './components/pages/AtualizarPedido';
 import DeletePedido from './components/pages/DeletePedido';
+import EmManutencao from "./components/pages/EmManutencao";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
               <Route path="/DetailRoupa/:cod_pedido" element={<DetailRoupa />} />
               <Route path="/AtualizarPedido/:cod_pedido" element={<AtualizarPedido />} />
               <Route path="/DeletePedido/:cod_pedido" element={<DeletePedido />} />
+              <Route path="/em-manutencao" element={<EmManutencao />} />
             </Route>
           </Routes>
         </Container>
