@@ -18,8 +18,8 @@ const NavBar = () => {
                     <Link to='/CadastrarRoupas'>
                         <li className={style.item}>CADASTRAR PEDIDO</li>
                     </Link>
-                    <Link to='/ListarLivros'>
-                        <li className={style.item}>LISTAR ROUPA</li>
+                    <Link to='/ListarRoupas'>
+                        <li className={style.item}>LISTAR PEDIDO(S)</li>
                     </Link>
                 </ul>
 

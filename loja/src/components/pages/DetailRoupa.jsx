@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import styles from "./DetailRoupa.module.css";
 import Button from "../Button";
 import defaultImage from "/logos.png";
 
 const DetailRoupa = () => {
+    const { cod_pedido } = useParams(); // Obtém o cod_pedido da URL
     const [roupa, setRoupa] = useState(null);
 
     useEffect(() => {
         const fetchRoupa = async () => {
             try {
-                const response = await fetch("http://localhost:5000/pedidos/1");
+                const response = await fetch(`http://localhost:5000/pedidos/${cod_pedido}`);
                 const data = await response.json();
                 if (!data.errorStatus) {
                     setRoupa(data.data);
@@ -22,27 +24,8 @@ const DetailRoupa = () => {
         };
 
         fetchRoupa();
-    }, []);
+    }, [cod_pedido]);
 
-    const handleEdit = () => {
-        console.log("Editar roupa:", roupa.cod_pedido);
-    };
-
-    const handleDelete = async () => {
-        try {
-            const response = await fetch(`http://localhost:5000/pedidos/${roupa.cod_pedido}`, {
-                method: "DELETE",
-            });
-            const data = await response.json();
-            if (!data.errorStatus) {
-                console.log("Roupa excluída com sucesso:", roupa.cod_pedido);
-            } else {
-                console.error("Erro ao excluir roupa:", data.mensageStatus);
-            }
-        } catch (err) {
-            console.error("Erro na requisição de exclusão:", err);
-        }
-    };
 
     return (
         <div className={styles.container}>
@@ -56,8 +39,8 @@ const DetailRoupa = () => {
                     <p><strong>Tamanho:</strong> {roupa.tamanho_escolhido}</p>
                     <p><strong>Código do Pedido:</strong> {roupa.cod_pedido}</p>
                     <div className={styles.buttonContainer}>
-                        <Button label="Editar" onClick={handleEdit} />
-                        <Button label="Excluir" onClick={handleDelete} />
+                        <Button label="Editar" router="/AtualizarPedido/" cod_pedido={cod_pedido} />
+                        <Button label="Excluir" router="/DeletePedido/" cod_pedido={cod_pedido}/>
                     </div>
                 </>
             ) : (
