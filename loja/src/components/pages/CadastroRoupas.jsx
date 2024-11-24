@@ -19,9 +19,16 @@ const CadastroRoupas = () => {
 
     const handlerChangeRoupa = (event) => {
         const { name, value } = event.target;
+        const limits = {
+            nome_marca: 30,
+            modelo_escolhido: 30,
+            descricao_escrita: 55,
+            cor_escolhida: 30,
+            custom_tamanho: 6
+        };
         setRoupa(prevState => ({
             ...prevState,
-            [name]: value,
+            [name]: value.slice(0, limits[name] || value.length),
             ...(name === "tamanho_escolhido" && value !== "Outro" ? { custom_tamanho: "" } : {})
         }));
     };
@@ -40,8 +47,6 @@ const CadastroRoupas = () => {
             .then(data => {
                 if (data.data) {
                     setTamanhos(data.data.map(t => ({ value: t.cod_tamanho, label: t.tamanho_escolhido })));
-                } else {
-                    console.error("Erro ao carregar tamanhos", data);
                 }
             })
             .catch(error => console.error("Erro ao buscar tamanhos:", error));
@@ -103,6 +108,7 @@ const CadastroRoupas = () => {
                     placeholder="Digite a marca da roupa"
                     value={roupa.nome_marca}
                     onChange={handlerChangeRoupa}
+                    maxLength={15}
                 />
                 <Input
                     type="text"
@@ -111,6 +117,7 @@ const CadastroRoupas = () => {
                     placeholder="Digite o modelo da roupa"
                     value={roupa.modelo_escolhido}
                     onChange={handlerChangeRoupa}
+                    maxLength={30}
                 />
                 <Input
                     type="text"
@@ -119,6 +126,7 @@ const CadastroRoupas = () => {
                     placeholder="Descreva a roupa desejada"
                     value={roupa.descricao_escrita}
                     onChange={handlerChangeRoupa}
+                    maxLength={50}
                 />
                 <Input
                     type="text"
@@ -127,6 +135,7 @@ const CadastroRoupas = () => {
                     placeholder="Escolha a cor"
                     value={roupa.cor_escolhida}
                     onChange={handlerChangeRoupa}
+                    maxLength={15}
                 />
                 <Select
                     name="tamanho_escolhido"
@@ -143,12 +152,13 @@ const CadastroRoupas = () => {
                         placeholder="Digite o tamanho desejado"
                         value={roupa.custom_tamanho}
                         onChange={handlerChangeRoupa}
+                        maxLength={6}
                     />
                 )}
                 <Button rotulo="Cadastrar Pedido" />
             </form>
         </section>
     );
-}
+};
 
 export default CadastroRoupas;

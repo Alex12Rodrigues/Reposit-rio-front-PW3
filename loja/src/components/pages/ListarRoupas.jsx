@@ -14,15 +14,14 @@ const ListRoupas = () => {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        "Access-Control-Allow-Origin": "*",
-                        "Access-Control-Allow-Headers": "*",
                     },
                 });
                 const data = await response.json();
 
                 if (!data.errorStatus) {
                     console.log("ROUPAS: ", data.data);
-                    setRoupas(data.data);
+                    // Inverter a ordem dos dados para exibir os mais recentes primeiro
+                    setRoupas(data.data.reverse());
                 } else {
                     console.error("Erro ao listar roupas:", data.mensageStatus);
                 }

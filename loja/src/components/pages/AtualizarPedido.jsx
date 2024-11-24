@@ -25,9 +25,17 @@ const AtualizarPedido = () => {
 
         const handlerChangePedido = (event) => {
                 const { name, value } = event.target;
+                const limits = {
+                        nome_marca: 30,
+                        modelo_escolhido: 30,
+                        descricao_escrita: 55,
+                        cor_escolhida: 30,
+                        custom_tamanho: 6
+                };
+
                 setPedido(prevState => ({
                         ...prevState,
-                        [name]: value,
+                        [name]: value.slice(0, limits[name] || value.length), // Limite de caracteres
                         ...(name === "tamanho_escolhido" && value !== "Outro" ? { custom_tamanho: "" } : {}),
                 }));
         };
